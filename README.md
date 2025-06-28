@@ -31,8 +31,8 @@ A Streamlit-based web application that uses deep learning to classify skin lesio
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/skin-cancer-classification.git
-cd skin-cancer-classification
+git clone https://github.com/Jwongjs/HAM10000-Skin-Cancer-Detection_Streamlit.git
+cd HAM10000-Skin-Cancer-Detection_Streamlit
 ```
 
 2. Install required dependencies:
