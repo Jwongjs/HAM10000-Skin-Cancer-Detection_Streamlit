@@ -152,7 +152,7 @@ st.divider()
 image_file = st.file_uploader("#### Classify the type of your skin lesion (with EfficientNet-b0) ⬇️", type=["jpg", "jpeg", "png"])
 
 #Load the pre-trained model
-model_path = "model/phase2_best.pth"
+model_path = "model/dummy_model.pth"
 model = load_model(model_path)
 
 button_clicked = st.button("🔍 Analyze Image")
