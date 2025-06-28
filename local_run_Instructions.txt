@@ -25,9 +25,7 @@ If you just want to run the web application with our pre-trained model:
 
 6) Open your browser and go to: http://localhost:8501
 
-## Option 2: Train Your Own Model
-
-If you want to train the model from scratch:
+## Option 2: Train my fine-tuned Models from Model_training
 
 1) Refer to Training_Instructions.txt under Model_training folder
 
