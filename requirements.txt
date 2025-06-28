@@ -3,5 +3,7 @@ streamlit-lottie
 numpy
 torchvision
 torch 
-PIL 
+Pillow
 timm
+requests
+pathlib
