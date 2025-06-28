@@ -1,0 +1,6 @@
+1. Run main(undersampling).ipynb or main(weightedSampling).ipynb on Google Colab due to better GPUs
+
+2. Make sure to access this folder dataset: https://drive.google.com/drive/folders/18YAge9C4Omjj8dlXYPsz4TLgBA8jmD6y?usp=sharing 
+(Request access if cannot) and move it to your My drive
+
+3. Run the notebook and allow access to mount your google drive
