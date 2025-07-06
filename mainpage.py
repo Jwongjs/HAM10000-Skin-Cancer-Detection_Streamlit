@@ -29,33 +29,34 @@ def page_intro_section():
     with col2:
         st_lottie(l.mainpage_lottie, loop = True, width = 260, height = 250, key = None)
         
-def load_model(model_path):
+def load_quantized_model(model_path):
     """
-    Load the pre-trained model from the specified path.
+    Load a quantized model from the specified path.
+    Optimized for Streamlit Community Cloud deployment.
     """
     try:
-        # Initialize the model architecture (using timm)
-        model = timm.create_model('efficientnet_b0', pretrained=False, num_classes=7)  # Assume 7 classes
-
-        # Load the checkpoint
-        checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
-
-        # Load just the model state dict from the checkpoint
-        model.load_state_dict(checkpoint['model_state_dict'])
-
-        # Set the model to evaluation mode
-        model.eval()
+        # Initialize the model architecture
+        model = timm.create_model('efficientnet_b0', pretrained=False, num_classes=7)
         
-        # Optional: Print validation accuracy from checkpoint
-        if 'val_acc' in checkpoint:
-            st.info(f"Model's validation accuracy: {checkpoint['val_acc']:.4f}")
+        # Quantize the model first
+        quantized_model = torch.quantization.quantize_dynamic(
+            model, {torch.nn.Linear}, dtype=torch.qint8
+        )
         
-        return model
+        # Load the quantized state dict
+        state_dict = torch.load(model_path, map_location=torch.device('cpu'))
+        quantized_model.load_state_dict(state_dict)
+        
+        # Set to evaluation mode
+        quantized_model.eval()
+        
+        st.success("✅ Quantized model loaded successfully! (Optimized for faster inference)")
+        return quantized_model
         
     except Exception as e:
-        st.error(f"Error loading model: {str(e)}")
+        st.error(f"Error loading quantized model: {str(e)}")
         return None
-        
+
 def get_standard_transform():
     #Same image transformation stats from training notebook for efficientNet_b0 model
     return transforms.Compose([
@@ -151,9 +152,14 @@ page_intro_section()
 st.divider()
 image_file = st.file_uploader("#### Classify the type of your skin lesion (with EfficientNet-b0) ⬇️", type=["jpg", "jpeg", "png"])
 
-#Load the pre-trained model
-model_path = "model/dummy_model.pth"
-model = load_model(model_path)
+# Load the quantized model (optimized for Streamlit deployment)
+model_path = "model/phase2_best_quantized.pth"
+model = load_quantized_model(model_path)
+
+# Check if model loaded successfully
+if model is None:
+    st.error("❌ Failed to load the model. Please refresh the page or try again later.")
+    st.stop()
 
 button_clicked = st.button("🔍 Analyze Image")
 if button_clicked:
@@ -198,4 +204,3 @@ if button_clicked:
 
             except Exception as e:
                 st.error(f"Error during analysis: {str(e)}")
-        
