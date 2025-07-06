@@ -1,4 +1,5 @@
 # Skin Cancer Image Classification Web App
+**Deployed Streamlit Web App uses the dummy version of the image classification model due to resource limitations
 
 A Streamlit-based web application that uses deep learning to classify skin lesions into seven different categories, helping with early detection of potential skin cancer conditions.
 
