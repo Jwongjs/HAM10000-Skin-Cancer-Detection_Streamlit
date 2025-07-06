@@ -6,4 +6,3 @@ torch
 Pillow
 timm
 requests
-pathlib
