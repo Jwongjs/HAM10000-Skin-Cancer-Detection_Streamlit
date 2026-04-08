@@ -150,7 +150,7 @@ def confidence_score_evaluation(prediction):
 
 page_intro_section()
 st.divider()
-image_file = st.file_uploader("**Classify the type of your skin lesion (with EfficientNet-b0): ", type=["jpg", "jpeg", "png"])
+image_file = st.file_uploader("Classify the type of your skin lesion (with EfficientNet-b0): ", type=["jpg", "jpeg", "png"])
 
 # Load the quantized model (optimized for Streamlit deployment)
 model_path = "model/phase2_best_quantized.pth"
